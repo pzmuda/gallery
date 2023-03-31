@@ -1,0 +1,21 @@
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 75px;
+  z-index: 100;
+  bottom:0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  display: flex;
+  background-color: #fff;
+   box-shadow: inset 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    font-weight: 900;
+}
+
+.txt {
+  opacity: none;
+  font-size: 40px;
+  color: black;
+}

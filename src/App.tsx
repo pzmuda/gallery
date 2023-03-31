@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Navigation from './components/organisms/nav/Navigation';
+import Favorites from './components/pages/favorites/Favorites';
+import Gallery from './components/pages/gallery/Gallery';
+import Home from './components/pages/home/Home';
+import { Image } from './interface/type';
 
 function App() {
+  const [favItems, setFavItems] = useState<Image[]>([]);
+
+  const handleAddFav: any = (fav: Image) => {
+    setFavItems([...favItems,fav])
+  };
+  const handleRemoveFav = (fav:Image) => {
+    const update = favItems.filter((item) => fav.id !== item.id);
+    return setFavItems(update);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <BrowserRouter>
+      <header>
+        <Navigation />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route
+            path='/gallery'
+            element={
+              <Gallery onClick={handleAddFav} onRemove={handleRemoveFav} />
+            }
+          />
+          <Route
+            path='/favorite'
+            element={<Favorites fav={favItems} onRemove={handleRemoveFav} />}
+          />
+        </Routes>
       </header>
-    </div>
+    </BrowserRouter>
   );
 }
 
